@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VueJS</title>
+    <script src="vue.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+</head>
+<body>
+<div id="exercise">
+  <!-- 1) Start the Effect with the Button. The Effect should alternate the "highlight" or "shrink" class on each new setInterval tick (attach respective class to the div with id "effect" below) -->
+  <div>
+    <button @click="startEffect">Start Effect</button>
+    <div id="effect" :class="changeEffect"></div>
+  </div>
+  <!-- 2) Create a couple of CSS classes and attach them via the array syntax -->
+  <div :class="[color, font]">I got no class :(</div>
+    <!-- 3) Let the user enter a class (create some example classes) and attach it -->
+  <div>
+    <input type="text" v-model="userClass">
+    <div :class="userClass">User class</div>
+  </div>
+  <!-- 4) Let the user enter a class and enter true/ false for another class (create some example classes) and attach the classes -->
+  <div>
+    <input type="text" v-model="userClass">
+    <input type="text" v-model="border">
+    <div :class="[userClass, changeBorder]">Something</div>
+  </div>
+  <!-- 5) Repeat 3) but now with values for styles (instead of class names). Attach the respective styles.  -->
+  <div>
+    <input type="text" v-model="background">
+    <div :style="myStyle">Style test</div>
+  </div>
+  <!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
+  <div>
+    <button @click="startProgress">Start Progress</button>
+    <div class="w3-border">
+    <div class="w3-grey" :style="[{height: height + 'px'}, {width: width + '%'}]"></div>
+</div>
+  </div>
+</div>
+<script>
+new Vue({
+  el: '#exercise',
+  data: {
+      effect: true,
+      border: false,
+      color: 'tomatoColor',
+      font: 'fontCourier',
+      userClass: 'userFirst',
+      background: 'blue',
+      width: 0,
+      height: 24
+  },
+  methods: {
+    startEffect: function() {
+      var vm = this;
+      setInterval(function(){
+          vm.effect = !vm.effect;
+      }, 500);
+    },
+    startProgress: function(){
+      var vm = this;
+      setInterval(function(){
+        vm.width++;
+      }, 100);
+    }
+  },
+  computed: {
+     changeEffect: function(){
+       return {
+           highlight: this.effect,
+           shrink: !this.effect
+       }
+     },
+     changeBorder: function(){
+       return {
+           roundBorder: this.border
+       }
+     },
+     myStyle: function(){
+       return {
+           'background-color': this.background
+       }
+     }
+   }
+});
+
+</script>
+</body>
+</html>
